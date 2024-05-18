@@ -1,8 +1,19 @@
+import { Navigate } from "react-router-dom";
 import User from "./User";
-import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 export const UserRoutes = {
   path: "",
   element: <User />,
-  children: [{ path: "", element: <Login /> }],
+  children: [
+    {
+      path: "home",
+      element: <Home />,
+    },
+
+    {
+      path: "",
+      element: <Navigate to={"home"} />,
+    },
+  ],
 };

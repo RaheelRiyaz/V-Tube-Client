@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import Input from "../../shared/components/Input";
 import ErrorMessage from "../../shared/components/ErrorMessage";
 import { BASE_SERVICE } from "../../services/BaseService";
+import { savetokens } from "../../services/TokenService";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 //#region Models
 
@@ -22,13 +25,21 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<IForm>();
- 
+  const navigateTo = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
   function handleForm(data: IForm) {
-    console.log(data);
+    setLoading(true);
     BASE_SERVICE.Post<IForm, LoginResponse>("users/login", data, false)
       .then((res) => {
         if (res.isSuccess) {
           console.log(res);
+          savetokens({
+            accessToken: res?.result?.accessToken,
+            refreshToken: res?.result?.refreshToken,
+          });
+          navigateTo("/");
         } else {
           console.log(res);
         }
@@ -36,7 +47,7 @@ function Login() {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {});
+      .finally(() => setLoading(false));
   }
   return (
     <form
@@ -69,12 +80,21 @@ function Login() {
         })}
       />
       {errors.password && <ErrorMessage message={errors.password.message} />}
-      <button
-        type="submit"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-      >
-        Login
-      </button>
+      {!loading ? (
+        <button
+          type="submit"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Login
+        </button>
+      ) : (
+        <button
+          disabled
+          className="text-white bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Logging in...
+        </button>
+      )}
     </form>
   );
 }

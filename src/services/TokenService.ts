@@ -5,18 +5,17 @@ import { NavigateToLogin } from "../shared/components/NavigateToLogin";
 
 export function getAccessToken() {
   const credentials = getCredentials();
-
+  
   if (!credentials?.accessToken) return null;
 
   const isExpired = isTokenExpired(credentials?.accessToken);
   console.log("is token expired", isExpired);
 
   if (isExpired) return null;
-
   return credentials?.accessToken;
 }
 
-function isTokenExpired(token:string) {
+export function isTokenExpired(token:string) {
   try {
     const [, payloadBase64] = token.split(".");
     const payloadJson = atob(payloadBase64); // Decode base64 payload
@@ -71,14 +70,14 @@ export async function refreshToken(config:any) {
 
 export function savetokens(credentials:unknown) {
   localStorage.setItem(
-    "appoint-doctor-credentials",
+    "v-tube-credentials",
     JSON.stringify(credentials)
   );
 }
 
 export function getCredentials() {
-  const credentials = localStorage.getItem("appoint-doctor-credentials")
-    ? JSON.parse(localStorage["appoint-doctor-credentials"])
+  const credentials = localStorage.getItem("v-tube-credentials")
+    ? JSON.parse(localStorage["v-tube-credentials"])
     : null;
 
   return credentials;
