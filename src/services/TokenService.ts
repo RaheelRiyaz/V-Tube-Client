@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BASE_SERVICE } from "./BaseService";
-import { TokenRefreshRequest, TokenRefreshResponse } from "../../models/User";
+import { TokenRefreshRequest, TokenRefreshResponse } from "../models/User";
 import { NavigateToLogin } from "../shared/components/NavigateToLogin";
 
 export function getAccessToken() {

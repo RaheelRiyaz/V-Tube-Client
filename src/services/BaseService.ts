@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getAccessToken, refreshToken } from './TokenService';
-import { APIResponse } from '../../models/APIResponse';
+import { APIResponse } from '../models/APIResponse';
 
 // Extend AxiosRequestConfig to include sendToken property
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
