@@ -1,25 +1,36 @@
 import { LegacyRef, forwardRef } from "react";
 
 interface IInput {
-  htmlFor: string;
+  htmlFor?: string;
   type?: string;
-  label: string;
+  label?: string;
   classes?: string;
   placeholder: string;
+  showLabel: boolean;
 }
 
 function InputEL(
-  { htmlFor, label, placeholder, type = "text",classes,...props }: IInput,
+  {
+    htmlFor,
+    label,
+    placeholder,
+    type = "text",
+    showLabel = true,
+    classes,
+    ...props
+  }: IInput,
   ref: LegacyRef<HTMLInputElement> | undefined
 ) {
   return (
     <div className="mb-5">
-      <label
-        htmlFor={htmlFor}
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        {label}
-      </label>
+      {showLabel && (
+        <label
+          htmlFor={htmlFor}
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          {label}
+        </label>
+      )}
       <input
         ref={ref}
         type={type}
