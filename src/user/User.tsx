@@ -5,11 +5,11 @@ import { getAccessToken } from "../services/TokenService";
 function User() {
   const navigateTo = useNavigate();
 
-  useEffect(() => {
-    const isUserLoggedIn = getAccessToken();
-    if (isUserLoggedIn) navigateTo("/home");
-    else navigateTo("/login");
-  }, [navigateTo]);
+  // useEffect(() => {
+  //   const isUserLoggedIn = getAccessToken();
+  //   if (isUserLoggedIn) navigateTo("/home");
+  //   else navigateTo("/login");
+  // }, [navigateTo]);
 
   return <div>{<Outlet />}</div>;
 }

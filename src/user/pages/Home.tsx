@@ -12,7 +12,7 @@ function Home() {
   const [showLimitMessage, setShowLimitMessage] = useState<boolean>(false);
   const [videoFilter, setVideoFilter] = useState<VideoFilter>({
     pageNumber: 1,
-    pageSize: 3,
+    pageSize: 10,
   });
 
   useEffect(() => {

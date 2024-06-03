@@ -23,7 +23,7 @@ function Login({ isSignup = false }) {
     !isSignup ? handleLogin(data) : handleSignup(data);
   }
 
-  function handleLogin(data: IForm) {
+  function handleLogin(data:IForm) {
     BASE_SERVICE.Post<IForm, LoginResponse>("users/login", data, false)
       .then((res) => {
         if (res.isSuccess) {

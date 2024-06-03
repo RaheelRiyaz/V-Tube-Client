@@ -6,7 +6,7 @@ interface IInput {
   label?: string;
   classes?: string;
   placeholder: string;
-  showLabel: boolean;
+  showLabel?: boolean;
 }
 
 function InputEL(
